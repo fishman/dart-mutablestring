@@ -7,7 +7,7 @@ class RopeIterator implements Iterator<MutableString> {
 
   RopeIterator(final MutableString rope, [int start = 0]){
     toTraverse = new Queue<MutableString>();
-    toTraverse.add(rope);
+    toTraverse.addFirst(rope);
     currentRope = null;
     skip = 0;
     initialize();
@@ -32,8 +32,8 @@ class RopeIterator implements Iterator<MutableString> {
     while (!toTraverse.isEmpty()) {
       currentRope = toTraverse.removeFirst();
       if (currentRope is ConcatenationRope) {
-        toTraverse.push(currentRope.getRight());
-        toTraverse.push(currentRope.getLeft());
+        toTraverse.addFirst(currentRope.right);
+        toTraverse.addFirst(currentRope.left);
       } else {
         break;
       }
@@ -70,8 +70,8 @@ class RopeIterator implements Iterator<MutableString> {
       while (!toTraverse.isEmpty()) {
         currentRope = toTraverse.removeFirst();
         if (currentRope is ConcatenationRope) {
-          toTraverse.push(currentRope.getRight());
-          toTraverse.push(currentRope.getLeft());
+          toTraverse.addFirst(currentRope.right);
+          toTraverse.addFirst(currentRope.left);
         } else {
           currentRopePos = -1;
           break;
