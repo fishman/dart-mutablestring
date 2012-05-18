@@ -167,7 +167,7 @@ visualizeDepth(final MutableString r, final int depth) {
   }
 }
 
-interface MutableString {// extends Iterable<Rope> {
+interface MutableString default FlatRope {// extends Iterable<Rope> {
   MutableString append(String c);
   
   MutableString appendSubstr(String c, int start, int end);
