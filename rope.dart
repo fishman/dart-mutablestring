@@ -25,22 +25,22 @@ MutableString Rebalance(final MutableString r) {
   return r;
 }
 
-/* TODO: needs work
+/* TODO: untested
 MutableString Rebalance(final MutableString r) {
   List<MutableString> ropes = new MutableString[FIBONACCI.length];
 
-  final ArrayDeque<MutableString> toExamine = new ArrayDeque<MutableString>();
+  final Queue<MutableString> toExamine = new Queue<MutableString>();
   // begin a depth first loop.
   toExamine.add(r);
   while (toExamine.size() > 0) {
-    final MutableString x = toExamine.pop();
-    if (x instanceof ConcatenationRope) {
-      toExamine.push(((ConcatenationRope) x).getRight());
-      toExamine.push(((ConcatenationRope) x).getLeft());
+    final MutableString x = toExamine.removeFirst();
+    if (x is ConcatenationRope) {
+      toExamine.addFirst(x.right);
+      toExamine.addFirst(x.left);
       continue;
     }
-    if (x instanceof FlatRope || x instanceof SubstringRope) {
-      final int l = x.length();
+    if (x is FlatRope || x is SubstringRope) {
+      final int l = x.length;
       int pos;
       boolean lowerSlotsEmpty=true;
       for (pos=2; pos<FIBONACCI.length-1; ++pos) {
@@ -68,7 +68,7 @@ MutableString Rebalance(final MutableString r) {
             rebalanced = ropes[j].append(rebalanced);
             ropes[j] = null;
           }
-          if (FIBONACCI[j] <= rebalanced.length() && rebalanced.length() < FIBONACCI[j+1]) {
+          if (FIBONACCI[j] <= rebalanced.length && rebalanced.length < FIBONACCI[j+1]) {
             ropes[j] = rebalanced;
             break;
           }
