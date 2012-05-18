@@ -19,7 +19,7 @@ class RopeIterator implements Iterator<MutableString> {
   }
 
   bool hasNext(){
-    return currentRopePos < currentRope.length - 1 || toTraverse.isEmpty();
+    return currentRopePos < currentRope.length - 1 || !toTraverse.isEmpty();
   }
 
   MutableString next(){
