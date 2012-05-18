@@ -23,11 +23,11 @@ class SubstringRope extends AbstractRope {
     return _offset;
   }
   
-  Rope getRope(){
+  MutableString getRope(){
     return _rope;
   }
   
-  Iterator<Rope> iterator(int start) {
+  Iterator<MutableString> iterator(int start) {
     
   }
   // TODO: iterator
@@ -37,7 +37,7 @@ class SubstringRope extends AbstractRope {
 //    return this.rope.iterator(this.offset + start);
 //  }
 
-  Rope subSequence(final int start, final int end) {
+  MutableString subSequence(final int start, final int end) {
     return new SubstringRope(_rope, _offset + start, end-start);
   }
   
@@ -45,7 +45,7 @@ class SubstringRope extends AbstractRope {
     return _rope.toSubString(_offset, _length);
   }
   
-  Rope rebalance() {
+  MutableString rebalance() {
     return this;
   }
   

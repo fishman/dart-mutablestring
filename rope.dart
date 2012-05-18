@@ -2,14 +2,14 @@
 // create a substring for substringropes
 // benchmark you run  it per seconds. so loop see how many iterations per 2 seconds
 
-Rope build(final sequence){
-  if (sequence is Rope)
+MutableString build(final sequence){
+  if (sequence is MutableString)
     return sequence;
   return new FlatRope(sequence);
 }
 
 /**
- * Rope utilities
+ * MutableString utilities
  * length of FIBONACCI list = 93;
  * when the depth of a rope becomes 96 we start rebalance the tree
  */
@@ -18,22 +18,22 @@ final int max_depth = 96;
 final String spaces = "                                                                                                    ";
 
 
-Rope Rebalance(final Rope r) {
+MutableString Rebalance(final MutableString r) {
   // TODO:
-  // List<Rope> ropes = new Rope[FIBONACCI.length];
+  // List<MutableString> ropes = new MutableString[FIBONACCI.length];
   
   return r;
 }
 
 /* TODO: needs work
-Rope Rebalance(final Rope r) {
-  List<Rope> ropes = new Rope[FIBONACCI.length];
+MutableString Rebalance(final MutableString r) {
+  List<MutableString> ropes = new MutableString[FIBONACCI.length];
 
-  final ArrayDeque<Rope> toExamine = new ArrayDeque<Rope>();
+  final ArrayDeque<MutableString> toExamine = new ArrayDeque<MutableString>();
   // begin a depth first loop.
   toExamine.add(r);
   while (toExamine.size() > 0) {
-    final Rope x = toExamine.pop();
+    final MutableString x = toExamine.pop();
     if (x instanceof ConcatenationRope) {
       toExamine.push(((ConcatenationRope) x).getRight());
       toExamine.push(((ConcatenationRope) x).getLeft());
@@ -52,7 +52,7 @@ Rope Rebalance(final Rope r) {
       if (lowerSlotsEmpty) {
         ropes[pos] = x;
       } else {
-        Rope rebalanced = null;
+        MutableString rebalanced = null;
         for (int j=2; j<=pos; ++j) {
           if (ropes[j] != null) {
             if (rebalanced == null)
@@ -78,7 +78,7 @@ Rope Rebalance(final Rope r) {
   }
 
   // perform the final concatenation
-  Rope result = null;
+  MutableString result = null;
   for (int j=2; j<FIBONACCI.length; ++j) {
     if (ropes[j] != null) {
       result = (result == null) ? ropes[j]: ropes[j].append(result);
@@ -88,7 +88,7 @@ Rope Rebalance(final Rope r) {
 }
 */
 
-Rope concatenate(final Rope left, final Rope right) {
+MutableString concatenate(final MutableString left, final MutableString right) {
   // TODO:
   if (left is FlatRope && right is FlatRope) {
     final FlatRope fLeft = left;
@@ -125,34 +125,34 @@ Rope concatenate(final Rope left, final Rope right) {
 
 }
 
-int Depth(final Rope r) {
-  if (r is Rope) {
+int Depth(final MutableString r) {
+  if (r is MutableString) {
     return r.depth();
   } else {
     throw new IllegalArgumentException("Bad rope");
   }
 }
   
-bool isBalanced(final Rope r) {
+bool isBalanced(final MutableString r) {
   final int dep = Depth(r);
   if (dep >= FIBONACCI.length - 2)
     return false;
   return FIBONACCI[dep +2] <= r.length;
 }
 
-Rope autoRebalance(final Rope r) {
-  if (r is Rope && r.depth() > max_depth) {
+MutableString autoRebalance(final MutableString r) {
+  if (r is MutableString && r.depth() > max_depth) {
     return Rebalance(r);
   } else {
     return r;
   }
 }
 
-visualize(final Rope r) {
+visualize(final MutableString r) {
   visualizeDepth(r, 0);
 }
 
-visualizeDepth(final Rope r, final int depth) {
+visualizeDepth(final MutableString r, final int depth) {
   if (r is FlatRope) {
     // TODO:
     print("hello");
@@ -167,18 +167,18 @@ visualizeDepth(final Rope r, final int depth) {
   }
 }
 
-interface Rope {// extends Iterable<Rope> {
-  Rope append(String c);
+interface MutableString {// extends Iterable<Rope> {
+  MutableString append(String c);
   
-  Rope appendSubstr(String c, int start, int end);
+  MutableString appendSubstr(String c, int start, int end);
   
-  Rope appendRope(Rope r);
+  MutableString appendRope(Rope r);
   
-  Rope delete(int start, int end);
+  MutableString delete(int start, int end);
 
   int indexOf(String ch);
   
-  Rope insert(int dstOffset, String str);
+  MutableString insert(int dstOffset, String str);
   
   int get length();
   
@@ -189,14 +189,14 @@ interface Rope {// extends Iterable<Rope> {
   
   int hashCode();
   
-  Rope rebalance();
+  MutableString rebalance();
   
   // TODO: implement charcodes();
 //  List<int> charCodes();
   
   // TODO: write(Writer out)
   
-  Rope subSequence(int start, int end);
+  MutableString subSequence(int start, int end);
   
   // TODO: matcher
 }

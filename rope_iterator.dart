@@ -1,12 +1,12 @@
-class RopeIterator implements Iterator<Rope> {
-  Rope currentRope;
+class RopeIterator implements Iterator<MutableString> {
+  MutableString currentRope;
   int currentRopePos;
   int currentAbsolutePos;
   int _skip;
-  Queue<Rope> toTraverse;
+  Queue<MutableString> toTraverse;
 
-  RopeIterator(final Rope rope, [int start = 0]){
-    toTraverse = new Queue<Rope>();
+  RopeIterator(final MutableString rope, [int start = 0]){
+    toTraverse = new Queue<MutableString>();
     toTraverse.add(rope);
     currentRope = null;
     skip = 0;
@@ -22,7 +22,7 @@ class RopeIterator implements Iterator<Rope> {
     return currentRopePos < currentRope.length - 1 || toTraverse.isEmpty();
   }
 
-  Rope next(){
+  MutableString next(){
     moveForward(1 + skip);
     skip = 0;
     return this.currentRope.charCodeAt(currentRopePos);

@@ -41,7 +41,7 @@ class FlatRope extends AbstractRope {
 //    };
 //  }
 
-  Rope subSequence(final int start, final int end) {
+  MutableString subSequence(final int start, final int end) {
     if (end - start < 8) {
       return new FlatRope(this._sequence.substring(start, end));
     } else {
@@ -53,7 +53,7 @@ class FlatRope extends AbstractRope {
     return this._sequence.toString();
   }
   
-  Rope rebalance() {
+  MutableString rebalance() {
     return this;
   }
   

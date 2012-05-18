@@ -1,4 +1,4 @@
-class AbstractRope implements Rope {
+class AbstractRope implements MutableString {
   int _hashCode = 0;
   int _length;
 
@@ -6,19 +6,19 @@ class AbstractRope implements Rope {
   
   abstract int charCodeAt(int index);
   
-  Rope append(String c) {
+  MutableString append(String c) {
     return concatenate(this, build(c));
   }
   
-  Rope appendSubstr(String c, final int start, final int end) {
+  MutableString appendSubstr(String c, final int start, final int end) {
     return concatenate(this, build(c).subSequence(start, end));
   }
   
-  Rope appendRope(Rope r) {
+  MutableString appendRope(MutableString r) {
     return concatenate(this, r);
   }
   
-  Rope delete(final int start, final int end){
+  MutableString delete(final int start, final int end){
     if (start == end)
       return this;
     return this.subSequence(0, start).appendRope(this.subSequence(end, this.length));
@@ -53,8 +53,8 @@ class AbstractRope implements Rope {
   }
   
   bool equals(final Object other){
-    if (other is Rope) {
-      final Rope rope = other;
+    if (other is MutableString) {
+      final MutableString rope = other;
       //TODO: lazy comparison, no hash compare if (rope.hashCode() != this.hashCode() || rope.length != this.length)
       if (rope.length != this.length)
         return false;
@@ -84,8 +84,8 @@ class AbstractRope implements Rope {
 
   }
   
-  Rope insert(final int dstOffset, final String s) {
-    final Rope r = (s == null) ? build("null") : build(s);
+  MutableString insert(final int dstOffset, final String s) {
+    final MutableString r = (s == null) ? build("null") : build(s);
     
     if (dstOffset == 0)
       return r.appendRope(this);

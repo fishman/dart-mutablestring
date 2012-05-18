@@ -1,6 +1,6 @@
 class ConcatenationRope extends AbstractRope {
-  final Rope _left;
-  final Rope _right;
+  final MutableString _left;
+  final MutableString _right;
   int _depth;
   
   ConcatenationRope(this._left, this._right) {
@@ -19,9 +19,9 @@ class ConcatenationRope extends AbstractRope {
       return this._right.charCodeAt(index - this._left.length);
   }
   
-  Rope get left() => this._left;
+  MutableString get left() => this._left;
   
-  Rope get right() => this._right; 
+  MutableString get right() => this._right; 
   
   // TODO: iterator
 //    public Iterator<Character> iterator(final int start) {
@@ -34,7 +34,7 @@ class ConcatenationRope extends AbstractRope {
 //    }
 //  }
 
-  Rope subSequence(final int start, final int end) {
+  MutableString subSequence(final int start, final int end) {
     if (start < 0 || end > this.length)
       throw new IllegalArgumentException("Illegal subsequence (" + start + "," + end + ")");
     final int l = this.left.length;
@@ -47,7 +47,7 @@ class ConcatenationRope extends AbstractRope {
       this.right.subSequence(0, end - l));
   }
   
-  Rope rebalance() {
+  MutableString rebalance() {
     return Rebalance(this);
   }
   
